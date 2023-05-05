@@ -1,0 +1,52 @@
+<% if user_signed_in? %>
+  <table class="table table-striped table bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>First Name</th>
+
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Twitter</th>
+        <th>User id</th>
+        <th>Action</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @friends.each do |friend| %>
+        <% if friend.user_id==current_user.id%>
+          <tr>
+            <td>
+              <%= link_to friend.first_name + " " + friend.last_name , edit_friend_path(friend) %>
+
+            </td>
+            <td>
+              <%= friend.email %>
+            </td>
+            <td>
+              <%= friend.phone %>
+            </td>
+            <td>
+              <%= friend.twitter %>
+            </td>
+            <td>
+              <%= friend.user_id %>
+            </td>
+
+            <td>
+              <%= button_to "Delete" , friend, method: :delete, data: { confirm: "Are you sure?" ,
+                turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
+            </td>
+          </tr>
+          <% end %>
+            <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "New friend" , new_friend_path, class: "btn btn-secondary" %>
+
+    <% else %>
+      <h1>Friend List</h1>
+      <p>It is my first rails webpage</p>
+      <% end %>
